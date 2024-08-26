@@ -381,7 +381,72 @@ int problema_5() {
     }
     return 0;
 }
+int problema_7() {
+    //problema 7
+    int n;
+    cout << "Ingrese un numero n: ";
+    cin >> n;
+    // Inicializamos el primer numero, segundola y la suma de los números pares
+    int fib1=1, fib2=1, suma=0;
+    // Generamos la serie de Fibonacci hasta alcanzar el número n
+    while (fib2 < n) {
+        // Si el número de Fibonacci actual es par, lo sumamos
+        if (fib2 % 2 == 0) {
+            suma += fib2;
+        }
+        int fib_next = fib1 + fib2;
+        // Actualizamos fib1 y fib2 para la siguiente iteración
+        fib1 = fib2;
+        fib2 = fib_next;
+    }
+    cout << "El resultado de la suma es: " << suma << endl;
+    return 0;
+}
 
+int problema_9() {
+    //problema 9
+    int N, suma=0;
+    cout << "Ingrese un numero entero N: ";
+    cin >> N;
+    int numero=N;
+    while (numero > 0) {
+        // Obtenemos el último dígito
+        int digito = numero % 10;
+        // Elevamos el dígito a sí mismo y lo sumamos
+        int potencia = 1;
+        for (int i = 0; i < digito; ++i) {
+            potencia *= digito;
+        }
+        suma += potencia;
+        // Eliminamos el último dígito
+        numero /= 10;
+    }
+    cout << "El resultado de la suma es: " << suma << endl;
+    return 0;
+}
+
+int problema_11() {
+    //problema 11
+    int numero;
+    cout << "Ingrese un numero: ";
+    cin >> numero;
+    int resultado = 1;
+
+    for (int i = 2; i <= numero; ++i) {
+        int a = resultado;
+        int b = i;
+        // Calcula el máximo común divisor utilizando el algoritmo de Euclides
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        // Calcula el mínimo común múltiplo
+        resultado = (resultado * i) / a;
+    }
+    cout << "El minimo comun multiplo es: " << resultado << endl;
+    return 0;
+}
 int main()
 {
     //ejercicio_1();
@@ -401,6 +466,9 @@ int main()
     //ejercicio_29();
     //problema_1();
     //problema_3();
-    problema_5();
+    //problema_5();
+    //problema_7();depurar
+    //problema_9();depurar
+    //problema_11();depurar
     return 0;
 }
