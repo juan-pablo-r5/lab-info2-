@@ -278,6 +278,7 @@ int ejercicio_29() {
     }
     return 0;
 }
+
 int problema_1() {
     char caracter;
     cout << "Ingrese un caracter: ";
@@ -301,22 +302,27 @@ int problema_1() {
 }
 
 int problema_3() {
-    //problema 3
     int mes, dia;
+
+    // Solicitar al usuario que ingrese el mes y el día
     cout << "Ingrese el mes (1-12): ";
     cin >> mes;
     cout << "Ingrese el dia: ";
     cin >> dia;
-    // Verificar si el mes es válido
-    if(mes<1|| mes >= 13){
+    if(mes < 1 || mes > 12) {
         cout << mes << " es un mes invalido." << endl;
         return 0;
     }
     // Verificar si el día es válido para el mes dado
-    bool dia_valido;
+    bool dia_valido = false;
     if (mes == 2) {
-        // Febrero tiene 28 días en un año no bisiesto
-        dia_valido = (dia >= 1 && dia <= 28);
+        // Febrero tiene 28 días en años no bisiestos
+        if (dia >= 1 && dia <= 28) {
+            dia_valido = true;
+        } else if (dia == 29) {
+            cout << dia << "/" << mes << " es una fecha valida en posiblemente año bisiesto." << endl;
+            return 0;
+        }
     } else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
         // Abril, Junio, Septiembre, Noviembre tienen 30 días
         dia_valido = (dia >= 1 && dia <= 30);
@@ -324,24 +330,12 @@ int problema_3() {
         // Los demás meses tienen 31 días
         dia_valido = (dia >= 1 && dia <= 31);
     }
-    // Si el día no es válido, imprimir mensaje y terminar el programa
-    if (!dia_valido && mes!=2) {
-        cout << dia << "/" << mes << " es una fecha invalida." << endl;
-        return 0;
-    }
-    // Si el día es 29 de febrero, verificar si es válido en un año bisiesto
-    if (mes == 2 && dia == 29) {
-        cout << dia << "/" << mes << " es valida en ";
-        // Verificar si el año actual (2024) es bisiesto
-        bool es_bisiesto = ((2024 % 4 == 0 && 2024 % 100 != 0) || (2024 % 400 == 0));
-        if (es_bisiesto) {
-            cout << "bisiesto." << endl;
-        } else {
-            cout << "posiblemente bisiesto." << endl;
-        }
-    } else {
-        // Si no es 29 de febrero, simplemente imprimir que es una fecha válida
+
+    // Si el día es válido, imprimir que la fecha es válida
+    if (dia_valido) {
         cout << dia << "/" << mes << " es una fecha valida." << endl;
+    } else {
+        cout << dia << "/" << mes << " es una fecha invalida." << endl;
     }
 
     return 0;
@@ -354,6 +348,7 @@ int problema_5() {
         cout << "Ingrese un numero impar para el tamano del patron: ";
         cin >> tamano;
     } while (tamano % 2 == 0);
+
     int mitad = tamano / 2 + 1; // Mitad del patrón
     // la parte superior del patrón
     for (int i = 1; i <= mitad; ++i) {
@@ -381,6 +376,7 @@ int problema_5() {
     }
     return 0;
 }
+
 int problema_7() {
     //problema 7
     int n;
@@ -390,7 +386,6 @@ int problema_7() {
     int fib1=1, fib2=1, suma=0;
     // Generamos la serie de Fibonacci hasta alcanzar el número n
     while (fib2 < n) {
-        // Si el número de Fibonacci actual es par, lo sumamos
         if (fib2 % 2 == 0) {
             suma += fib2;
         }
@@ -447,8 +442,79 @@ int problema_11() {
     cout << "El minimo comun multiplo es: " << resultado << endl;
     return 0;
 }
-int main()
-{
+
+int problema_13() {
+    //problema 13
+    int limite;
+    cout << "Ingrese un numero: ";
+    cin >> limite;
+
+    int suma = 0;
+    //mira si es primo
+    for (int i = 2; i < limite; ++i) {
+        bool esPrimo = true;
+        //descartar los numero que no son primos del limite
+        for (int j = 2; j * j <= i; ++j) {
+            if (i % j == 0) {
+                esPrimo = false;
+                break;
+            }
+        }
+        //sumar lo numero primos encontados
+        if (esPrimo) {
+            suma += i;
+        }
+    }
+    cout << "El resultado de la suma es: " << suma << endl;
+    return 0;
+}
+
+int problema_15() {
+    //problema 15
+    int n;
+    cout << "Ingrese el tamano de la espiral (numero impar): ";
+    cin >> n;
+    while (n % 2 == 0) {
+        cout << "Error: El numero ingresado debe ser impar: " << endl;
+        cin>> n;
+    }
+    int suma = 1; // Comenzamos con el número 1 en la esquina superior izquierda
+    int valor = 1; // Valor a incrementar en cada paso
+    // Sumamos los valores en las cuatro esquinas de cada capa de la espiral
+    for (int i = 3; i <= n; i += 2) {
+        for (int j = 0; j < 4; ++j) {
+            valor += (i - 1); // Aumentamos el valor en el tamaño de la capa menos 1
+            suma += valor;
+        }
+    }
+    cout << "En una espiral de " << n << "x" << n << ", la suma es: " << suma <<endl;
+    return 0;
+}
+int problema_17() {
+    //problema 17
+    int k;
+    cout << "Ingrese el numero k: ";
+    cin >> k;
+    int n = 1;
+    int triangular = 1;
+    while (true) {
+        int conteoDivisores = 0;
+        //cuenta los divisores
+        for (int i = 1; i <= triangular; ++i) {
+            if (triangular % i == 0) {
+                conteoDivisores++;
+            }
+        }
+        if (conteoDivisores > k) {
+            cout << "El numero es: " << triangular << " que tiene " << conteoDivisores << " divisores." << endl;
+            break;
+        }
+        n++;
+        triangular = n * (n + 1) / 2;
+    }
+    return 0;
+}
+int main(){
     //ejercicio_1();
     //ejercicio_3();
     //ejercicio_5();
@@ -467,8 +533,11 @@ int main()
     //problema_1();
     //problema_3();
     //problema_5();
-    //problema_7();depurar
-    //problema_9();depurar
-    //problema_11();depurar
+    //problema_7();
+    //problema_9();
+    //problema_11();
+    //problema_13();
+    //problema_15();
+    problema_17();
     return 0;
 }
