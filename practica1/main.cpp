@@ -430,7 +430,6 @@ int problema_11() {
     for (int i = 2; i <= numero; ++i) {
         int a = resultado;
         int b = i;
-        // Calcula el máximo común divisor utilizando el algoritmo de Euclides
         while (b != 0) {
             int temp = b;
             b = a % b;
@@ -535,9 +534,9 @@ int main(){
     //problema_5();
     //problema_7();
     //problema_9();
-    //problema_11();
+    problema_11();
     //problema_13();
     //problema_15();
-    problema_17();
+    //problema_17();
     return 0;
 }
